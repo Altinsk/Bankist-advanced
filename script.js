@@ -146,3 +146,33 @@ logo.alt = "This Bankist logo";
 console.log(logo.alt);
 logo.setAttribute("alt", "This is Bankist logo");
 console.log(logo.alt);
+
+// this is the absolute address
+console.log(logo.src);
+// this is the relative address
+console.log(logo.getAttribute("src"));
+
+//href
+//
+const link = document.querySelector(".nav__link--btn");
+// this is the absolute link
+console.log(link.href);
+// this is the link written in HTML which is #
+console.log(link.getAttribute("href"));
+
+// data attribute
+//---------------
+// it has to start with data-AnythingWeWant
+// dataset is used . camelCase the name as follows on the logo section
+console.log(logo.dataset.versionNumber);
+
+// classes
+//----------
+
+logo.classList.add("c");
+logo.classList.remove("c");
+logo.classList.toggle("c");
+logo.classList.contains("c"); // not includes
+
+// don't use this one as this is over write all the existing classes by this one, best is to use add()
+logo.classList = "blabbla";
