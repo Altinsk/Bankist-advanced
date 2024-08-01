@@ -176,3 +176,123 @@ logo.classList.contains("c"); // not includes
 
 // don't use this one as this is over write all the existing classes by this one, best is to use add()
 logo.classList = "blabbla";
+
+// ScrollTo
+
+//---------
+
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+
+const section1 = document.querySelector("#section--1");
+
+btnScrollTo.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  // get coordinates of an element using getBoundingClinetRect()
+
+  const s1cords = section1.getBoundingClientRect();
+
+  console.log(s1cords);
+
+  // get the  coordinates of e.target using getBoundingClientRect()
+
+  // the getBoundingClientRect() is calculating the visual distance on the browser , it will change if scroll up or down
+
+  console.log(e.target.getBoundingClientRect());
+
+  // get the current scroll window.pageXoffset and Yoffset
+
+  console.log(window.pageXOffset, window.pageYOffset);
+
+  // read the height and width of view port
+
+  console.log(
+    document.documentElement.clientWidth,
+
+    document.documentElement.clientHeight
+  );
+
+  // Solutions 1 - old school
+
+  // scrolling to somewhere using scrollTo(horizontal, vertical)
+
+  // adding the s1cords.top is not enough as it will be Ok if we are at the top of the page while if we scrolled
+
+  // a bit down it will be different value as the  getBoundingClientRect() is meausing the actual visual position
+
+  // the solution is to add the scrolled amount using window.pageYoffset value
+
+  // window.scrollTo(
+
+  //   s1cords.left + window.pageXOffset,
+
+  //   s1cords.top + window.pageYOffset
+
+  // );
+
+  // to scroll smoothly pass an object to scrollTo({}) and add behavior: 'smooth' property
+
+  // window.scrollTo({
+
+  //   left: s1cords.left + window.pageXOffset,
+
+  //   top: s1cords.top + window.pageYOffset,
+
+  //   behavior: 'smooth',
+
+  // });
+
+  // solution 2 - Modern
+
+  // using scrollIntoView({behavior: 'smooth'}) function
+
+  section1.scrollIntoView({ behavior: "smooth" });
+});
+
+// Events
+//-------
+// mouseenter event is live hover in css = onmouseenter , also similar to mouseover
+// addEvenetListenere
+
+const h1 = document.querySelector("h1");
+h1.addEventListener("mouseenter", function (e) {
+  alert("addEvent Listner: You are doing mouseenter");
+});
+
+// onevent ex: onclick, onmouseenter
+// onevent ex: onmouseenter , onclick ..etc are old school similar handlers like the modern one addEventListener
+// the advantage of addEVenetListener it allows us t o add more than 1 event while onevent handler doesn't do the same job
+
+h1.onmouseenter = function (e) {
+  alert("this is onmouseenter");
+};
+
+// remove listerner or use to listen 1 time:
+const firstBtn = document.querySelector(".btn--scroll-to");
+// firstBtn.onclick = function (e) {
+//   alert('this button is pressed');
+// };
+
+// create a seprate function to do the action on the desired element
+// add the event listener to this element and call the function, then removeEvenetlistener() after in the function itself or after certain time
+// const removeBtnListner = function (e) {
+//   alert('this btn is pressed again');
+//   firstBtn.removeEventListener('click', removeBtnListner);
+
+// };
+// firstBtn.addEventListener('click', removeBtnListner);
+// setInterval(() => console.log('hi'), 1000);
+// remove handler after certain time
+const removeBtnListner = function (e) {
+  alert("this btn is pressed again");
+};
+
+firstBtn.addEventListener("click", removeBtnListner);
+
+setTimeout(
+  () => firstBtn.removeEventListener("click", removeBtnListner),
+  10000
+);
+
+// using HTML attributes
+/* <button onClick='alert("a click")' class="btn--text btn--scroll-to">Learn more &DownArrow;</button> */
