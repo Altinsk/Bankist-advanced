@@ -191,7 +191,6 @@ btnScrollTo.addEventListener("click", function (e) {
   // get coordinates of an element using getBoundingClinetRect()
 
   const s1cords = section1.getBoundingClientRect();
-
   console.log(s1cords);
 
   // get the  coordinates of e.target using getBoundingClientRect()
@@ -203,17 +202,14 @@ btnScrollTo.addEventListener("click", function (e) {
   // get the current scroll window.pageXoffset and Yoffset
 
   console.log(window.pageXOffset, window.pageYOffset);
-
   // read the height and width of view port
 
   console.log(
     document.documentElement.clientWidth,
-
     document.documentElement.clientHeight
   );
 
   // Solutions 1 - old school
-
   // scrolling to somewhere using scrollTo(horizontal, vertical)
 
   // adding the s1cords.top is not enough as it will be Ok if we are at the top of the page while if we scrolled
@@ -222,31 +218,20 @@ btnScrollTo.addEventListener("click", function (e) {
 
   // the solution is to add the scrolled amount using window.pageYoffset value
 
-  // window.scrollTo(
-
-  //   s1cords.left + window.pageXOffset,
-
-  //   s1cords.top + window.pageYOffset
-
-  // );
-
+  window.scrollTo(
+    s1cords.left + window.pageXOffset,
+    s1cords.top + window.pageYOffset
+  );
   // to scroll smoothly pass an object to scrollTo({}) and add behavior: 'smooth' property
-
   // window.scrollTo({
-
   //   left: s1cords.left + window.pageXOffset,
-
   //   top: s1cords.top + window.pageYOffset,
-
   //   behavior: 'smooth',
-
   // });
-
   // solution 2 - Modern
+  // using scrollIntoView({behavior: 'smooth'})
 
-  // using scrollIntoView({behavior: 'smooth'}) function
-
-  section1.scrollIntoView({ behavior: "smooth" });
+  // section1.scrollIntoView({ behavior: "smooth" });
 });
 
 // Events
