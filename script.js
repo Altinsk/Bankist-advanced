@@ -281,3 +281,62 @@ setTimeout(
 
 // using HTML attributes
 /* <button onClick='alert("a click")' class="btn--text btn--scroll-to">Learn more &DownArrow;</button> */
+
+// Random colour
+// rgb(255,255,255)
+
+// random integer
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+// random color
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+
+console.log(randomColor());
+
+// propagation Bublbing
+//---------------------
+
+//capturing phase where the event propagates from the
+// top to the target
+
+// target phase where the event originated
+
+// bubbling phase where the event propagates
+// from the event phase till the top of the document
+
+// when an event occurs in an element it propagates (bubbles) up the same effect to its parents till the top
+
+// e.target => where the event happend (originated)
+// e.currentTarget => where the handles is attached
+// e.currentTarget === this word
+
+document.querySelector(".nav__link").addEventListener("click", function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log("link", e.target, e.currentTarget);
+  // we can stop the event propagation bubbling
+  // it stops the bubbling effect to the parents
+  // e.stopPropagation();
+});
+
+document.querySelector(".nav__links").addEventListener("click", function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log("links", e.target, e.currentTarget);
+});
+
+// by default eventListeners are listening to the events in the target phase and bubbling but not in the capturing phase however if we need to enable listening through capturing phase and disable it in bubbling phase we can set set the 3rd parameter in the listener to true as shown below, in this case the event will be generated from the nav (top) not from the element (child) => first element is nav not nav__link this means that the event is listening from the (capturing phase) down to the event not from the event up (bubbling phase)
+
+// document.querySelector(".nav").addEventListener(
+//   "click",
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log("nav", e.target, e.currentTarget);
+//   },
+//   true
+// );
+
+document.querySelector(".nav").addEventListener("click", function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log("nav", e.target, e.currentTarget);
+});
