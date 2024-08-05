@@ -340,3 +340,33 @@ document.querySelector(".nav").addEventListener("click", function (e) {
   this.style.backgroundColor = randomColor();
   console.log("nav", e.target, e.currentTarget);
 });
+
+// page navigation
+// event delegation
+//-----------------
+
+// document.querySelectorAll('.nav__link').forEach(elem =>
+//   elem.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     // smooth scrolling
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   })
+// );
+
+// event delegation is to put the listener on a common parent element using the bubbling effect instead of copying the same behavior for each of them
+
+// for example we will put the listener on the nav__links ul instead of nav__link li
+// event.target is where the even is originated
+
+// we need to apply 2 steps to apply event delegation
+// 1. add event listener to common element
+// 2. determine which element originated the event
+
+document.querySelector(".nav__links").addEventListener("click", function (e) {
+  e.preventDefault();
+  const id = e.target.getAttribute("href");
+  if (e.target.classList.contains("nav__link")) {
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
