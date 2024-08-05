@@ -370,3 +370,52 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
   }
 });
+
+// DOM traversing
+//----------------
+
+// const h1 = document.querySelector("h1");
+
+// going downwrads : child
+console.log(h1.querySelectorAll(".highlight"));
+console.log(h1.childNodes);
+// parent.children always works with direct children
+// will gives us the children elements
+console.log(h1.children); // HTML collection is a live element => will change with any update
+
+// first child
+console.log(h1.firstElementChild);
+h1.firstElementChild.style.color = "red";
+
+// last child
+h1.lastElementChild.style.color = "brown";
+
+// going upwards : parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// the closest parent
+// the closest parent with a class 'header' to h1
+h1.closest(".header").style.background = "var(--gradient-primary)";
+
+// closest() is opposite to querySelector , querySelector finds the children no matter how deep in the DOM tree, while closest() finds parents also no matter how far up in the DOM tree
+h1.closest(".header").style.background = "var(--gradient-primary)";
+
+// going sideways: siblings
+// in JS we can only access direct siblings, previous and next elements
+
+// for elements:
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+// for nodes:
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+// if need all the h1 siblings we can move to the parent and read all the children from there
+
+console.log(h1.parentElement.children);
+// HTML collection is not an array but it is iretable and we can spread into an array
+
+[...h1.parentElement.children].forEach((elem) => {
+  if (elem !== h1) elem.style.transform = "scale(0.5)";
+});
