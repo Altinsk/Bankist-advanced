@@ -419,3 +419,41 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach((elem) => {
   if (elem !== h1) elem.style.transform = "scale(0.5)";
 });
+
+// A tapped component
+//-------------------
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
+
+tabsContainer.addEventListener("click", function (e) {
+  // use closest() to get the parent of an element but in case its is the element itself then it returns the element back
+
+  // for example e.target.clicked.closest('.operations__tab') if the clicked e.target with the same class 'operations__tab' then => tab
+  const clicked = e.target.closest(".operations__tab");
+
+  //  if (clicked) {
+  //    clicked.classList.add('operations__tab--active');
+  //  }
+
+  // use guard clause instead of the if statement above in case its not many conditions : in case not clicked return the function immediately
+  // if clicked then continue the code execution
+  if (!clicked) return;
+
+  // in order to remove the effect of the actual active tab before applying it on the new clicked tab you need to remove the class from all before applying
+
+  // it on the new tab
+  // remove classes
+  tabs.forEach((elem) => elem.classList.remove("operations__tab--active"));
+  clicked.classList.add("operations__tab--active");
+  tabsContent.forEach((elem) =>
+    elem.classList.remove("operations__content--active")
+  );
+
+  // add classes
+  // use dataset.tab = data.tab
+  console.log(clicked.dataset.tab);
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
+});
