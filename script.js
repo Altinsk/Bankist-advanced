@@ -34,21 +34,21 @@ document.addEventListener("keydown", function(e) {
 //-----------------
 // documentElement will be used to select any element on the webpage, ex if we want to apply css to the
 // entire page we need to select documentElement
-console.log(document.documentElement);
+// console.log(document.documentElement);
 // we can also select doucment.head or document.body without selectors ex: (querySelector)
-console.log(document.head);
-console.log(document.body);
+// console.log(document.head);
+// console.log(document.body);
 // but with any other element we need to use a selector
 // when we use a selector it will return the first element found
 const header = document.querySelector(".header");
 // if you need t o select all the elements use querySelectorAll => node (object)
-console.log(document.querySelectorAll(".section"));
-console.log(document.getElementById("section--1"));
+// console.log(document.querySelectorAll(".section"));
+// console.log(document.getElementById("section--1"));
 // getElementsByTagName is the live version after the DOM is updated  (HTMLCollection: the most updated version) for example
 // this is different with nodeList (doesn't update itself)
 const allBtns = document.getElementsByTagName("button"); // returns HTMLCollection
-console.log(allBtns);
-console.log(document.getElementsByClassName("btn")); // returns HTMLCollection
+// console.log(allBtns);
+// console.log(document.getElementsByClassName("btn")); // returns HTMLCollection
 
 // Creating and inserting elements
 //---------------------------------
@@ -104,12 +104,12 @@ document
 message.style.backgroundColor = "red";
 message.style.width = "120%";
 
-console.log(message.style.backgroundColor); // red
+// console.log(message.style.backgroundColor); // red
 // but cannot get a style inside a class
 
 // we can get any style just by using getComputedStyle()
-console.log(getComputedStyle(message).color);
-console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).color);
+// console.log(getComputedStyle(message).height);
 
 // parseFloat the number getComputedStyle for the height to get the number out of this (xx.xx px)
 message.style.height =
@@ -123,48 +123,48 @@ document.documentElement.style.setProperty("--color-primary", "orangered");
 // attributes
 //------------
 const logo = document.querySelector(".nav__logo");
-console.log(logo.src);
-console.log(logo.alt);
-console.log(logo.className);
+// console.log(logo.src);
+// console.log(logo.alt);
+// console.log(logo.className);
 
 // Non standard attributes
 //-------------------------
 
 // if you added a new non standard attribute like desinger
-console.log(logo.designer);
+// console.log(logo.designer);
 // we can get read any attribute even if non standard by using getAttribute() method
-console.log(logo.getAttribute("designer"));
+// console.log(logo.getAttribute("designer"));
 
 // we acn also set attributes by using setAttribute for non standard attributes
 
 logo.setAttribute("designer", "omar");
 
-console.log(logo.getAttribute("designer"));
+// console.log(logo.getAttribute("designer"));
 // but for standard attributes can be using setAttributes or like this
-console.log(logo.alt);
+// console.log(logo.alt);
 logo.alt = "This Bankist logo";
-console.log(logo.alt);
+// console.log(logo.alt);
 logo.setAttribute("alt", "This is Bankist logo");
-console.log(logo.alt);
+// console.log(logo.alt);
 
 // this is the absolute address
-console.log(logo.src);
+// console.log(logo.src);
 // this is the relative address
-console.log(logo.getAttribute("src"));
+// console.log(logo.getAttribute("src"));
 
 //href
 //
 const link = document.querySelector(".nav__link--btn");
 // this is the absolute link
-console.log(link.href);
+// console.log(link.href);
 // this is the link written in HTML which is #
-console.log(link.getAttribute("href"));
+// console.log(link.getAttribute("href"));
 
 // data attribute
 //---------------
 // it has to start with data-AnythingWeWant
 // dataset is used . camelCase the name as follows on the logo section
-console.log(logo.dataset.versionNumber);
+// console.log(logo.dataset.versionNumber);
 
 // classes
 //----------
@@ -191,23 +191,23 @@ btnScrollTo.addEventListener("click", function(e) {
   // get coordinates of an element using getBoundingClinetRect()
 
   const s1cords = section1.getBoundingClientRect();
-  console.log(s1cords);
+  // console.log(s1cords);
 
   // get the  coordinates of e.target using getBoundingClientRect()
 
   // the getBoundingClientRect() is calculating the visual distance on the browser , it will change if scroll up or down
 
-  console.log(e.target.getBoundingClientRect());
+  // console.log(e.target.getBoundingClientRect());
 
   // get the current scroll window.pageXoffset and Yoffset
 
-  console.log(window.pageXOffset, window.pageYOffset);
+  // console.log(window.pageXOffset, window.pageYOffset);
   // read the height and width of view port
 
-  console.log(
-    document.documentElement.clientWidth,
-    document.documentElement.clientHeight
-  );
+  // console.log(
+  //   document.documentElement.clientWidth,
+  //   document.documentElement.clientHeight
+  // );
 
   // Solutions 1 - old school
   // scrolling to somewhere using scrollTo(horizontal, vertical)
@@ -377,22 +377,22 @@ document.querySelector(".nav__links").addEventListener("click", function(e) {
 // const h1 = document.querySelector("h1");
 
 // going downwrads : child
-console.log(h1.querySelectorAll(".highlight"));
-console.log(h1.childNodes);
+// console.log(h1.querySelectorAll(".highlight"));
+// console.log(h1.childNodes);
 // parent.children always works with direct children
 // will gives us the children elements
-console.log(h1.children); // HTML collection is a live element => will change with any update
+// console.log(h1.children); // HTML collection is a live element => will change with any update
 
 // first child
-console.log(h1.firstElementChild);
+// console.log(h1.firstElementChild);
 h1.firstElementChild.style.color = "red";
 
 // last child
 h1.lastElementChild.style.color = "brown";
 
 // going upwards : parents
-console.log(h1.parentNode);
-console.log(h1.parentElement);
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
 
 // the closest parent
 // the closest parent with a class 'header' to h1
@@ -405,15 +405,15 @@ h1.closest(".header").style.background = "var(--gradient-primary)";
 // in JS we can only access direct siblings, previous and next elements
 
 // for elements:
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
 // for nodes:
-console.log(h1.previousSibling);
-console.log(h1.nextSibling);
+// console.log(h1.previousSibling);
+// console.log(h1.nextSibling);
 
 // if need all the h1 siblings we can move to the parent and read all the children from there
 
-console.log(h1.parentElement.children);
+// console.log(h1.parentElement.children);
 // HTML collection is not an array but it is iretable and we can spread into an array
 
 [...h1.parentElement.children].forEach(elem => {
@@ -468,9 +468,9 @@ tabsContainer.addEventListener("click", function(e) {
 
 const hovering = function(e) {
   e.preventDefault();
-  console.log(this, e.currentTarget);
+  // console.log("hovering", this, e.currentTarget);
   // this keyword is equal to currentTarget
-  console.log(e.currentTarget);
+  // console.log(e.currentTarget);
 
   if (e.target.classList.contains("nav__link")) {
     const link = e.target;
@@ -513,3 +513,26 @@ const nav = document.querySelector(".nav");
 nav.addEventListener("mouseover", hovering.bind(0.5));
 // 'this' value is set to 0.5
 nav.addEventListener("mouseout", hovering.bind(1));
+
+// Sticky navigation
+//------------------
+// solution 1
+// scrollY solutions is not optimal
+// It does the job but the performance is compromized
+
+window.addEventListener("scroll", function(e) {
+  // scrollY or scrollX hets you the position of the scroll from the top of the window for Y and from the left of the window for X
+  console.log(scrollY);
+  // console.log(scrollX);
+
+  const initialCords = section1.getBoundingClientRect();
+  console.log(initialCords);
+
+  if (window.scrollY > initialCords.top)
+    document.querySelector(".nav").classList.add("sticky");
+  else document.querySelector(".nav").classList.remove("sticky");
+});
+
+// solution 2
+// using the intersection observer API
+// ------------------------------------
