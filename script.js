@@ -520,14 +520,14 @@ nav.addEventListener("mouseout", hovering.bind(1));
 // scrollY solutions is not optimal
 // It does the job but the performance is compromized
 
+// scrollY or scrollX gets you the position of the scroll from the top of the window for Y and from the left of the window for X
+console.log(scrollY);
+// console.log(scrollX);
+const initialCords = section1.getBoundingClientRect();
+console.log(initialCords);
+
 window.addEventListener("scroll", function(e) {
-  // scrollY or scrollX hets you the position of the scroll from the top of the window for Y and from the left of the window for X
-  console.log(scrollY);
-  // console.log(scrollX);
-
-  const initialCords = section1.getBoundingClientRect();
-  console.log(initialCords);
-
+  e.preventDefault();
   if (window.scrollY > initialCords.top)
     document.querySelector(".nav").classList.add("sticky");
   else document.querySelector(".nav").classList.remove("sticky");
@@ -536,3 +536,4 @@ window.addEventListener("scroll", function(e) {
 // solution 2
 // using the intersection observer API
 // ------------------------------------
+// the inter section observer API is an API that observes the intersection of elements
