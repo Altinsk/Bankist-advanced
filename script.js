@@ -521,19 +521,59 @@ nav.addEventListener("mouseout", hovering.bind(1));
 // It does the job but the performance is compromized
 
 // scrollY or scrollX gets you the position of the scroll from the top of the window for Y and from the left of the window for X
-console.log(scrollY);
-// console.log(scrollX);
-const initialCords = section1.getBoundingClientRect();
-console.log(initialCords);
+// console.log(scrollY);
+// // console.log(scrollX);
+// const initialCords = section1.getBoundingClientRect();
+// console.log(initialCords);
 
-window.addEventListener("scroll", function(e) {
-  e.preventDefault();
-  if (window.scrollY > initialCords.top)
-    document.querySelector(".nav").classList.add("sticky");
-  else document.querySelector(".nav").classList.remove("sticky");
-});
+// window.addEventListener("scroll", function(e) {
+//   e.preventDefault();
+//   if (window.scrollY > initialCords.top)
+//     document.querySelector(".nav").classList.add("sticky");
+//   else document.querySelector(".nav").classList.remove("sticky");
+// });
 
 // solution 2
 // using the intersection observer API
 // ------------------------------------
 // the inter section observer API is an API that observes the intersection of elements
+
+// this call back function will be called each time the
+// the observed element is intersecting the root element
+// at the threshold that we defined
+
+// whenever the first section (our target = section1) intersects with the viewport at 10% the call back function is executed
+
+// const osbCallBack = function(enteries, observer) {
+//   enteries.forEach(entry => console.log(entry));
+// };
+// const obsOption = {
+//   root: null, // if Null: all the view port
+//   threshold: 0.3 // 10%
+//   // threshold can be also an array [0, 0.2]
+//   // 0% and 20% entering or outing
+// };
+// const observer = new IntersectionObserver(osbCallBack, obsOption);
+
+// observer.observe(section1); // our target need to observe the inersection with the section1
+
+const obsCallBack = function(enteries) {
+  const [entry] = enteries;
+  console.log(entry);
+  if (!entry.isIntersecting)
+    document.querySelector(".nav").classList.add("sticky");
+  else document.querySelector(".nav").classList.remove("sticky");
+};
+
+// calculate the nav in px
+
+const navHeight = nav.getBoundingClientRect().height;
+const obsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px` // its a visual margin
+};
+
+const headerObserver = new IntersectionObserver(obsCallBack, obsOptions);
+
+headerObserver.observe(header);
