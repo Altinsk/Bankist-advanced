@@ -8,23 +8,23 @@ const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
 
-const openModal = function (e) {
+const openModal = function(e) {
   e.preventDefault();
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 };
 
-const closeModal = function () {
+const closeModal = function() {
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
 };
 
-btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
+btnsOpenModal.forEach(btn => btn.addEventListener("click", openModal));
 
 btnCloseModal.addEventListener("click", closeModal);
 overlay.addEventListener("click", closeModal);
 
-document.addEventListener("keydown", function (e) {
+document.addEventListener("keydown", function(e) {
   if (e.key === "Escape" && !modal.classList.contains("hidden")) {
     closeModal();
   }
@@ -92,7 +92,7 @@ header.after(message);
 // remove() element => deletes it
 document
   .querySelector(".btn--close-cookie")
-  .addEventListener("click", function () {
+  .addEventListener("click", function() {
     message.remove();
     // before remove() it was done this way => message.parentElement.removeChild(message);
   });
@@ -185,7 +185,7 @@ const btnScrollTo = document.querySelector(".btn--scroll-to");
 
 const section1 = document.querySelector("#section--1");
 
-btnScrollTo.addEventListener("click", function (e) {
+btnScrollTo.addEventListener("click", function(e) {
   e.preventDefault();
 
   // get coordinates of an element using getBoundingClinetRect()
@@ -240,7 +240,7 @@ btnScrollTo.addEventListener("click", function (e) {
 // addEvenetListenere
 
 const h1 = document.querySelector("h1");
-h1.addEventListener("mouseenter", function (e) {
+h1.addEventListener("mouseenter", function(e) {
   alert("addEvent Listner: You are doing mouseenter");
 });
 
@@ -248,7 +248,7 @@ h1.addEventListener("mouseenter", function (e) {
 // onevent ex: onmouseenter , onclick ..etc are old school similar handlers like the modern one addEventListener
 // the advantage of addEVenetListener it allows us t o add more than 1 event while onevent handler doesn't do the same job
 
-h1.onmouseenter = function (e) {
+h1.onmouseenter = function(e) {
   alert("this is onmouseenter");
 };
 
@@ -268,7 +268,7 @@ const firstBtn = document.querySelector(".btn--scroll-to");
 // firstBtn.addEventListener('click', removeBtnListner);
 // setInterval(() => console.log('hi'), 1000);
 // remove handler after certain time
-const removeBtnListner = function (e) {
+const removeBtnListner = function(e) {
   alert("this btn is pressed again");
 };
 
@@ -312,7 +312,7 @@ console.log(randomColor());
 // e.currentTarget => where the handles is attached
 // e.currentTarget === this word
 
-document.querySelector(".nav__link").addEventListener("click", function (e) {
+document.querySelector(".nav__link").addEventListener("click", function(e) {
   this.style.backgroundColor = randomColor();
   console.log("link", e.target, e.currentTarget);
   // we can stop the event propagation bubbling
@@ -320,7 +320,7 @@ document.querySelector(".nav__link").addEventListener("click", function (e) {
   // e.stopPropagation();
 });
 
-document.querySelector(".nav__links").addEventListener("click", function (e) {
+document.querySelector(".nav__links").addEventListener("click", function(e) {
   this.style.backgroundColor = randomColor();
   console.log("links", e.target, e.currentTarget);
 });
@@ -336,7 +336,7 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
 //   true
 // );
 
-document.querySelector(".nav").addEventListener("click", function (e) {
+document.querySelector(".nav").addEventListener("click", function(e) {
   this.style.backgroundColor = randomColor();
   console.log("nav", e.target, e.currentTarget);
 });
@@ -363,7 +363,7 @@ document.querySelector(".nav").addEventListener("click", function (e) {
 // 1. add event listener to common element
 // 2. determine which element originated the event
 
-document.querySelector(".nav__links").addEventListener("click", function (e) {
+document.querySelector(".nav__links").addEventListener("click", function(e) {
   e.preventDefault();
   const id = e.target.getAttribute("href");
   if (e.target.classList.contains("nav__link")) {
@@ -416,7 +416,7 @@ console.log(h1.nextSibling);
 console.log(h1.parentElement.children);
 // HTML collection is not an array but it is iretable and we can spread into an array
 
-[...h1.parentElement.children].forEach((elem) => {
+[...h1.parentElement.children].forEach(elem => {
   if (elem !== h1) elem.style.transform = "scale(0.5)";
 });
 
@@ -426,7 +426,7 @@ const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 
-tabsContainer.addEventListener("click", function (e) {
+tabsContainer.addEventListener("click", function(e) {
   // use closest() to get the parent of an element but in case its is the element itself then it returns the element back
 
   // for example e.target.clicked.closest('.operations__tab') if the clicked e.target with the same class 'operations__tab' then => tab
@@ -444,9 +444,9 @@ tabsContainer.addEventListener("click", function (e) {
 
   // it on the new tab
   // remove classes
-  tabs.forEach((elem) => elem.classList.remove("operations__tab--active"));
+  tabs.forEach(elem => elem.classList.remove("operations__tab--active"));
   clicked.classList.add("operations__tab--active");
-  tabsContent.forEach((elem) =>
+  tabsContent.forEach(elem =>
     elem.classList.remove("operations__content--active")
   );
 
@@ -457,3 +457,59 @@ tabsContainer.addEventListener("click", function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add("operations__content--active");
 });
+
+// passing arguments to event handler funcitions
+//-----------------------------------------------
+// menu fade animation
+// mouseover is similar to mousenter , the big difference is that mouseenter does not bubble
+// mouseleave is the opposite of mousenter
+// mouseout is the opposite of mouseover
+// transform the code to be DRY
+
+const hovering = function(e) {
+  e.preventDefault();
+  console.log(this, e.currentTarget);
+  // this keyword is equal to currentTarget
+  console.log(e.currentTarget);
+
+  if (e.target.classList.contains("nav__link")) {
+    const link = e.target;
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    const logo = link.closest(".nav").querySelector("img");
+    siblings.forEach(elem => {
+      if (elem !== link) {
+        elem.style.opacity = this;
+        logo.style.opacity = this;
+      }
+    });
+  }
+};
+
+// const nav = document.querySelector('.nav');
+// nav.addEventListener('mouseover', function (e) {
+//   hovering(e, 0.5);
+// });
+// nav.addEventListener('mouseout', function (e) {
+//   hovering(e, 1);
+// });
+
+// any handler function can not have except 1 parameter (argument) which is the event
+// if we need to pass another argument in our handler this will be done by using the 'this' keyword using
+// bind() method
+
+// we can use so we cannot simply use hovering(e, 0.5) to be a handler function as in the addEventListener
+// is expecting a function
+
+// the bind methond creates a copy of the function that is it called on and it will set the 'this' keyword in
+
+// function call to whatever value we pass into bind()
+
+// we can use the bind() method to pass an array, object or value using the 'this' keyword
+
+// bind() method is used to pass an argument into a handler , this argument is value, array or object
+
+const nav = document.querySelector(".nav");
+// 'this' value is set to 1
+nav.addEventListener("mouseover", hovering.bind(0.5));
+// 'this' value is set to 0.5
+nav.addEventListener("mouseout", hovering.bind(1));
