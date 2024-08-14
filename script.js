@@ -101,8 +101,8 @@ document
 //------------------
 // this styling will be inline style after execution
 // if for any reason need to read the tyle, canot read except the inline style we setted like these examples
-message.style.backgroundColor = "red";
-message.style.width = "120%";
+// message.style.backgroundColor = "red";
+// message.style.width = "120%";
 
 // console.log(message.style.backgroundColor); // red
 // but cannot get a style inside a class
@@ -240,17 +240,17 @@ btnScrollTo.addEventListener("click", function(e) {
 // addEvenetListenere
 
 const h1 = document.querySelector("h1");
-h1.addEventListener("mouseenter", function(e) {
-  alert("addEvent Listner: You are doing mouseenter");
-});
+// h1.addEventListener("mouseenter", function(e) {
+//   alert("addEvent Listner: You are doing mouseenter");
+// });
 
 // onevent ex: onclick, onmouseenter
 // onevent ex: onmouseenter , onclick ..etc are old school similar handlers like the modern one addEventListener
 // the advantage of addEVenetListener it allows us t o add more than 1 event while onevent handler doesn't do the same job
 
-h1.onmouseenter = function(e) {
-  alert("this is onmouseenter");
-};
+// h1.onmouseenter = function(e) {
+//   alert("this is onmouseenter");
+// };
 
 // remove listerner or use to listen 1 time:
 const firstBtn = document.querySelector(".btn--scroll-to");
@@ -293,7 +293,7 @@ const randomInt = (min, max) =>
 const randomColor = () =>
   `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
 
-console.log(randomColor());
+// console.log(randomColor());
 
 // propagation Bublbing
 //---------------------
@@ -313,16 +313,16 @@ console.log(randomColor());
 // e.currentTarget === this word
 
 document.querySelector(".nav__link").addEventListener("click", function(e) {
-  this.style.backgroundColor = randomColor();
-  console.log("link", e.target, e.currentTarget);
+  // this.style.backgroundColor = randomColor();
+  // console.log("link", e.target, e.currentTarget);
   // we can stop the event propagation bubbling
   // it stops the bubbling effect to the parents
   // e.stopPropagation();
 });
 
 document.querySelector(".nav__links").addEventListener("click", function(e) {
-  this.style.backgroundColor = randomColor();
-  console.log("links", e.target, e.currentTarget);
+  // this.style.backgroundColor = randomColor();
+  // console.log("links", e.target, e.currentTarget);
 });
 
 // by default eventListeners are listening to the events in the target phase and bubbling but not in the capturing phase however if we need to enable listening through capturing phase and disable it in bubbling phase we can set set the 3rd parameter in the listener to true as shown below, in this case the event will be generated from the nav (top) not from the element (child) => first element is nav not nav__link this means that the event is listening from the (capturing phase) down to the event not from the event up (bubbling phase)
@@ -337,8 +337,8 @@ document.querySelector(".nav__links").addEventListener("click", function(e) {
 // );
 
 document.querySelector(".nav").addEventListener("click", function(e) {
-  this.style.backgroundColor = randomColor();
-  console.log("nav", e.target, e.currentTarget);
+  // this.style.backgroundColor = randomColor();
+  // console.log("nav", e.target, e.currentTarget);
 });
 
 // page navigation
@@ -385,10 +385,10 @@ document.querySelector(".nav__links").addEventListener("click", function(e) {
 
 // first child
 // console.log(h1.firstElementChild);
-h1.firstElementChild.style.color = "red";
+// h1.firstElementChild.style.color = "red";
 
 // last child
-h1.lastElementChild.style.color = "brown";
+// h1.lastElementChild.style.color = "brown";
 
 // going upwards : parents
 // console.log(h1.parentNode);
@@ -396,10 +396,10 @@ h1.lastElementChild.style.color = "brown";
 
 // the closest parent
 // the closest parent with a class 'header' to h1
-h1.closest(".header").style.background = "var(--gradient-primary)";
+// h1.closest(".header").style.background = "var(--gradient-primary)";
 
 // closest() is opposite to querySelector , querySelector finds the children no matter how deep in the DOM tree, while closest() finds parents also no matter how far up in the DOM tree
-h1.closest(".header").style.background = "var(--gradient-primary)";
+// h1.closest(".header").style.background = "var(--gradient-primary)";
 
 // going sideways: siblings
 // in JS we can only access direct siblings, previous and next elements
@@ -606,3 +606,33 @@ allSections.forEach(section => {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
 });
+
+// lazy loading pictures
+//----------------------
+
+// creating callback function for the observer
+const lazyPictures = function(entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+
+  // replace the source attribute data-src with the src attribute
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener("load", function() {
+    entry.target.classList.remove("lazy-img");
+  });
+
+  observer.unobserve(entry.target);
+};
+
+// creating observer
+const lazyLoading = new IntersectionObserver(lazyPictures, {
+  root: null,
+  threshold: 0,
+  rootMargin: "200px"
+});
+
+// observing all pictures
+const allPictures = document.querySelectorAll("img[data-src]");
+allPictures.forEach(img => lazyLoading.observe(img));
