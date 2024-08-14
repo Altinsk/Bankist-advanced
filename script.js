@@ -559,7 +559,6 @@ nav.addEventListener("mouseout", hovering.bind(1));
 
 const obsCallBack = function(enteries) {
   const [entry] = enteries;
-  console.log(entry);
   if (!entry.isIntersecting)
     document.querySelector(".nav").classList.add("sticky");
   else document.querySelector(".nav").classList.remove("sticky");
@@ -577,3 +576,33 @@ const obsOptions = {
 const headerObserver = new IntersectionObserver(obsCallBack, obsOptions);
 
 headerObserver.observe(header);
+
+// Reveal sections when scrolling
+//--------------------------------
+
+// creating the callback function for the observer
+const revealSection = function(enteries, observer) {
+  const [entry] = enteries;
+  console.log(entry);
+  // use guard
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove("section--hidden");
+
+  // unobserve once done first time
+  observer.unobserve(entry.target);
+};
+
+// creating the observer
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15
+});
+
+// selecting all the sections
+const allSections = document.querySelectorAll(".section");
+
+// observing all sections
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
+});
