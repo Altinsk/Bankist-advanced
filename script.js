@@ -417,7 +417,7 @@ h1.closest(".header").style.background = "var(--gradient-primary)";
 // HTML collection is not an array but it is iretable and we can spread into an array
 
 [...h1.parentElement.children].forEach(elem => {
-  if (elem !== h1) elem.style.transform = "scale(0.5)";
+  if (elem !== h1) elem.style.transform = "scale(1)";
 });
 
 // A tapped component
