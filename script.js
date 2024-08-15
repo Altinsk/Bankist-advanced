@@ -604,7 +604,7 @@ const allSections = document.querySelectorAll(".section");
 // observing all sections
 allSections.forEach(section => {
   sectionObserver.observe(section);
-  section.classList.add("section--hidden");
+  // section.classList.add("section--hidden");
 });
 
 // lazy loading pictures
@@ -636,3 +636,61 @@ const lazyLoading = new IntersectionObserver(lazyPictures, {
 // observing all pictures
 const allPictures = document.querySelectorAll("img[data-src]");
 allPictures.forEach(img => lazyLoading.observe(img));
+
+// slider
+//-------
+
+// selecting slider and spreading all pictures to be visitble to work with
+// const slider = document.querySelector(".slider");
+// slider.style.transform = `scale(0.3) translateX(-700px)`;
+// slider.style.overflow = `visible`;
+
+// slecting all the slides
+const slides = document.querySelectorAll(".slide");
+
+// selecting left and right buttons
+const btnRight = document.querySelector(".slider__btn--right");
+const btnLeft = document.querySelector(".slider__btn--left");
+
+// creating current slide variable
+let curSlide = 0;
+const maxSlides = slides.length;
+
+// function to detemine which slide to go to
+const goToSlide = function(slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+};
+
+// 0 100 200 300
+// need to go to slide 1 => -100 0 100 200 =>
+// curSlide = 2 =>  -200 -100 0 100
+
+// initial slide
+goToSlide(0);
+
+// next slide to the right
+
+const nextSlide = function() {
+  if (curSlide === maxSlides - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  goToSlide(curSlide);
+};
+
+const previousSlide = function() {
+  if (curSlide === 0) {
+    curSlide = maxSlides - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlide(curSlide);
+};
+
+// click right button
+btnRight.addEventListener("click", nextSlide);
+// click left button
+btnLeft.addEventListener("click", previousSlide);
